@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "modlist",
+	"version": "${version}",
+	"name": "modlist",
+	"description": "Adds a server-side /mods command to get info about installed mods",
+	"authors": [
+		"eeee1"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/modlist-eeee1",
+		"sources": "https://github.com/ThinkOutsideTheScope/modlist/"
+	},
+	"license": "MIT",
+	"icon": "assets/modlist/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.chickenmc.Modlist"
+		],
+		"client": [
+			"com.chickenmc.client.ModlistClient"
+		]
+	},
+	"mixins": [
+		"modlist.mixins.json",
+		{
+			"config": "modlist.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
