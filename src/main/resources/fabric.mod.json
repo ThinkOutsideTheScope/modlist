@@ -17,22 +17,22 @@
 	"entrypoints": {
 		"main": [
 			"com.chickenmc.Modlist"
-		],
-		"client": [
-			"com.chickenmc.client.ModlistClient"
 		]
 	},
 	"mixins": [
-		"modlist.mixins.json",
-		{
-			"config": "modlist.client.mixins.json",
-			"environment": "client"
-		}
+		"modlist.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.19.5",
 		"minecraft": "~26.3",
 		"java": ">=25",
 		"fabric-api": "*"
+	},
+	"custom": {
+		"fabric-api:item-group-render-override": true,
+		"cardinal-components": {},
+		"modmenu": {
+			"badges": ["server"]
+		}
 	}
 }
