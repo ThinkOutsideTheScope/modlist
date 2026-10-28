@@ -65,7 +65,14 @@ public class CommandHandlers {
         }
     }
     public static int modsMaskCommand(CommandContext<CommandSourceStack> context) {
-        ModFieldType field = context.getArgument("field", ModFieldType.class);
+        String field_string = context.getArgument("field", String.class);
+        ModFieldType field;
+        try {
+            field = ModFieldArgumentType.convert(field_string);
+        } catch (RuntimeException _) {
+            context.getSource().sendFailure(Component.literal("Unknown field type: " + field_string));
+            return -1;
+        }
         String modName = context.getArgument("mod_name", String.class);
         if (modName.equals("*")) {
             for (Map.Entry<String, ModMetadata> entry : Modlist.mods.entrySet()) {
@@ -98,7 +105,14 @@ public class CommandHandlers {
         }
     }
     public static int modsUnmaskCommand(CommandContext<CommandSourceStack> context) {
-        ModFieldType field = context.getArgument("field", ModFieldType.class);
+        String field_string = context.getArgument("field", String.class);
+        ModFieldType field;
+        try {
+            field = ModFieldArgumentType.convert(field_string);
+        } catch (RuntimeException _) {
+            context.getSource().sendFailure(Component.literal("Unknown field type: " + field_string));
+            return -1;
+        }
         String modName = context.getArgument("mod_name", String.class);
         if (modName.equals("*")) {
             for (Map.Entry<String, ModMetadata> entry : Modlist.mods.entrySet()) {
@@ -110,7 +124,14 @@ public class CommandHandlers {
         return Command.SINGLE_SUCCESS;
     }
     public static int modsMaskQueryCommand(CommandContext<CommandSourceStack> context) {
-        ModFieldType field = context.getArgument("field", ModFieldType.class);
+        String field_string = context.getArgument("field", String.class);
+        ModFieldType field;
+        try {
+            field = ModFieldArgumentType.convert(field_string);
+        } catch (RuntimeException _) {
+            context.getSource().sendFailure(Component.literal("Unknown field type: " + field_string));
+            return -1;
+        }
         String modName = context.getArgument("mod_name", String.class);
         if (modName.equals("*")) {
             for (Map.Entry<String, ModMetadata> entry : Modlist.mods.entrySet()) {

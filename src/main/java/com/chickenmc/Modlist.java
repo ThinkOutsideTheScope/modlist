@@ -35,31 +35,21 @@ public class Modlist implements ModInitializer {
 			mods.put(mod.getMetadata().getName(), mod.getMetadata());
 			masks.put(mod.getMetadata().getName(), (short)0);
 		}
-		ArgumentTypeRegistry.registerArgumentType(
-				id("field"),
-				ModFieldArgumentType.class,
-				SingletonArgumentInfo.contextFree(ModFieldArgumentType::new)
-		);
-		ArgumentTypeRegistry.registerArgumentType(
-				id("mod_name"),
-				ModNameArgumentType.class,
-				SingletonArgumentInfo.contextFree(ModNameArgumentType::new)
-		);
 		CommandRegistrationCallback.EVENT.register(((dispatcher, buildContext, selection) -> {
 			dispatcher.register(
 					Commands.literal("mods")
 							.then(Commands.literal("query")
 									.then(Commands.argument("format", StringArgumentType.string())
-											.then(Commands.argument("mod_name", new ModNameArgumentType()).suggests(new ModNameSuggestionProvider()).executes(CommandHandlers::modsQueryCommand))))
+											.then(Commands.argument("mod_name", StringArgumentType.string()).suggests(new ModNameSuggestionProvider()).executes(CommandHandlers::modsQueryCommand))))
 							.then(Commands.literal("mask").requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.mask"), PermissionLevel.ADMINS))
-									.then(Commands.argument("field", new ModFieldArgumentType()).suggests(new ModFieldSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.mask"), PermissionLevel.ADMINS))
-											.then(Commands.argument("mod_name", new ModNameArgumentType()).suggests(new ModNameSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.mask"), PermissionLevel.ADMINS)).executes(CommandHandlers::modsMaskCommand))))
+									.then(Commands.argument("field", StringArgumentType.word()).suggests(new ModFieldSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.mask"), PermissionLevel.ADMINS))
+											.then(Commands.argument("mod_name", StringArgumentType.string()).suggests(new ModNameSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.mask"), PermissionLevel.ADMINS)).executes(CommandHandlers::modsMaskCommand))))
 							.then(Commands.literal("unmask").requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.unmask"), PermissionLevel.ADMINS))
-									.then(Commands.argument("field", new ModFieldArgumentType()).suggests(new ModFieldSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.unmask"), PermissionLevel.ADMINS))
-											.then(Commands.argument("mod_name", new ModNameArgumentType()).suggests(new ModNameSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.unmask"), PermissionLevel.ADMINS)).executes(CommandHandlers::modsUnmaskCommand))))
+									.then(Commands.argument("field", StringArgumentType.word()).suggests(new ModFieldSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.unmask"), PermissionLevel.ADMINS))
+											.then(Commands.argument("mod_name", StringArgumentType.string()).suggests(new ModNameSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.unmask"), PermissionLevel.ADMINS)).executes(CommandHandlers::modsUnmaskCommand))))
 							.then(Commands.literal("mask_query").requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.mask_query"), PermissionLevel.ADMINS))
-									.then(Commands.argument("field", new ModFieldArgumentType()).suggests(new ModFieldSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.mask_query"), PermissionLevel.ADMINS))
-											.then(Commands.argument("mod_name", new ModNameArgumentType()).suggests(new ModNameSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.mask_query"), PermissionLevel.ADMINS)).executes(CommandHandlers::modsMaskQueryCommand)))));
+									.then(Commands.argument("field", StringArgumentType.word()).suggests(new ModFieldSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.mask_query"), PermissionLevel.ADMINS))
+											.then(Commands.argument("mod_name", StringArgumentType.string()).suggests(new ModNameSuggestionProvider()).requires(source -> source.checkPermission(Identifier.fromNamespaceAndPath(MOD_ID, "command.mods.mask_query"), PermissionLevel.ADMINS)).executes(CommandHandlers::modsMaskQueryCommand)))));
 		}));
 	}
 
